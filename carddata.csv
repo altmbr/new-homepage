@@ -1,0 +1,16 @@
+Grouping,Channel,Primary Action,Secondary Action,Data,Title,Description
+Idea,Email,Build/Edit,Dismiss,,Micro audience strategy,Target CEOs of companies in Boston
+Idea,Email,Build/Edit,Dismiss,,Recent funding activity strategy,Target VP Marketing at companies that raised $1-5M
+Idea,Email,Build/Edit,Dismiss,,Custom campaign,
+Idea,Email,Build/Edit,Dismiss,,,
+Idea,LinkedIn,Build/Edit,Dismiss,,,
+Idea,Dialer,Build/Edit,Dismiss,,,
+Draft,Email,Build/Edit,Dismiss,"People, Companies",,
+Draft,LinkedIn,Build/Edit,Dismiss,"People, Companies",,
+Draft,Dialer,Build/Edit,Dismiss,"People, Companies",,
+Blocked,Email,View,Dismiss,"People, Companies",,
+Blocked,LinkedIn,View,Dismiss,"People, Companies",,
+Blocked,Dialer,View,Dismiss,"People, Companies",,
+In Progress,Email,View,Pause,"Outreach, Engaged, Interested",,
+In Progress,LinkedIn,View,Pause,"Outreach, Engaged, Interested",,
+In Progress,Dialer,View,Pause,"Outreach, Engaged, Interested",,

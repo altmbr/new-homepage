@@ -30,12 +30,42 @@ interface Campaign {
   }
 }
 
+interface CardConfig {
+  grouping: string
+  channel: string
+  primaryAction: string
+  secondaryAction: string
+  data: string[]
+  title?: string
+  description?: string
+}
+
+const cardData: CardConfig[] = [
+  { grouping: "Idea", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "Micro audience strategy", description: "Target CEOs of companies in Boston" },
+  { grouping: "Idea", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "Recent funding activity strategy", description: "Target VP Marketing at companies that raised $1-5M" },
+  { grouping: "Idea", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "Custom campaign", description: "" },
+  { grouping: "Idea", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
+  { grouping: "Idea", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
+  { grouping: "Idea", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
+  { grouping: "Draft", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Draft", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Draft", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "In Progress", channel: "Email", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
+  { grouping: "In Progress", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
+  { grouping: "In Progress", channel: "Dialer", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" }
+]
+
 const campaigns: Campaign[] = [
   { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "156" }, { label: "Engagements", value: "23" }, { label: "Interested", value: "8", color: "text-teal-600" }], owner: { name: "Sarah Chen", initials: "SC" } },
   { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreach", value: "342" }, { label: "Engagements", value: "48" }, { label: "Interested", value: "14", color: "text-teal-600" }], owner: { name: "Mike Johnson", initials: "MJ" } },
-  { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "Contacts", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
-  { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [{ label: "Contacts", value: "1,247" }, { label: "Companies", value: "89" }] },
-  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "289" }, { label: "Engagements", value: "67" }, { label: "Interested", value: "19", color: "text-teal-600" }], owner: { name: "Emma Davis", initials: "ED" } }
+  { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
+  { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }] },
+  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "289" }, { label: "Engagements", value: "67" }, { label: "Interested", value: "19", color: "text-teal-600" }], owner: { name: "Emma Davis", initials: "ED" } },
+  { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "People", value: "543" }, { label: "Companies", value: "67" }], owner: { name: "John Smith", initials: "JS" } },
+  { id: "7", name: "Phone Campaign", sequence: "Discovery Calls", status: "draft", type: "phone", metrics: [{ label: "People", value: "892" }, { label: "Companies", value: "124" }], owner: { name: "Lisa Wang", initials: "LW" } }
 ];
 
 type NotificationType = "Updates" | "Leads" | "Blocker" | "Billing";
@@ -69,14 +99,81 @@ const statusConfig = {
   ideas: { color: "bg-purple-100 text-purple-800", icon: TrendingUp },
 };
 
-const getActionButton = (status: Campaign["status"]) => {
+function mapStatusToGrouping(status: Campaign["status"]): string {
   switch (status) {
-    case "in-progress": return { label: "Pause", variant: "outline" as const, icon: Pause };
-    case "on-hold": return { label: "Resume", variant: "default" as const, icon: Play };
-    case "paused": return { label: "Resume", variant: "default" as const, icon: Play };
-    case "draft": return { label: "Launch", variant: "default" as const, icon: Rocket };
-    case "ideas": return { label: "Build", variant: "default" as const, icon: Building2 };
+    case "ideas": return "Idea";
+    case "draft": return "Draft";
+    case "on-hold": return "Blocked";
+    case "paused": return "Blocked";
+    case "in-progress": return "In Progress";
+    default: return "In Progress";
   }
+}
+
+function mapChannelToCardChannel(type: ChannelType): string {
+  switch (type) {
+    case "email": return "Email";
+    case "phone": return "Dialer";
+    case "linkedin-outbound":
+    case "linkedin-inbound": return "LinkedIn";
+    default: return "Email";
+  }
+}
+
+function getCardConfig(status: Campaign["status"], type: ChannelType): CardConfig | undefined {
+  const grouping = mapStatusToGrouping(status);
+  const channel = mapChannelToCardChannel(type);
+  return cardData.find(config => config.grouping === grouping && config.channel === channel);
+}
+
+const getActionButton = (status: Campaign["status"], type: ChannelType) => {
+  const config = getCardConfig(status, type);
+  if (!config) {
+    // Fallback to old logic
+    switch (status) {
+      case "in-progress": return { label: "Pause", variant: "outline" as const, icon: Pause };
+      case "on-hold": return { label: "Resume", variant: "default" as const, icon: Play };
+      case "paused": return { label: "Resume", variant: "default" as const, icon: Play };
+      case "draft": return { label: "Launch", variant: "default" as const, icon: Rocket };
+      case "ideas": return { label: "Build", variant: "default" as const, icon: Building2 };
+    }
+  }
+  
+  // Use card config
+  const getIcon = (action: string) => {
+    switch (action.toLowerCase()) {
+      case "build/edit": return Building2;
+      case "view": return Eye;
+      case "pause": return Pause;
+      case "dismiss": return X;
+      default: return Eye;
+    }
+  };
+  
+  return { 
+    label: config.primaryAction, 
+    variant: config.primaryAction.toLowerCase().includes('view') ? "outline" as const : "default" as const, 
+    icon: getIcon(config.primaryAction) 
+  };
+};
+
+const getSecondaryButton = (status: Campaign["status"], type: ChannelType) => {
+  const config = getCardConfig(status, type);
+  if (!config || !config.secondaryAction) return null;
+  
+  const getIcon = (action: string) => {
+    switch (action.toLowerCase()) {
+      case "dismiss": return X;
+      case "pause": return Pause;
+      default: return X;
+    }
+  };
+  
+  return { 
+    label: config.secondaryAction, 
+    variant: "ghost" as const, 
+    icon: getIcon(config.secondaryAction) 
+  };
 };
 
 function toNumber(n: string | number) {
@@ -247,31 +344,55 @@ function ChatBox() {
 
 function CampaignCard({ campaign }: { campaign: Campaign }) {
   const config = statusConfig[campaign.status];
-  const actionButton = getActionButton(campaign.status);
+  const actionButton = getActionButton(campaign.status, campaign.type);
+  const secondaryButton = getSecondaryButton(campaign.status, campaign.type);
+  const cardConfig = getCardConfig(campaign.status, campaign.type);
+  
+  // Use card config data for metrics if available, otherwise use campaign metrics
+  const displayMetrics = cardConfig?.data.length ? 
+    cardConfig.data.map(label => {
+      const existing = campaign.metrics.find(m => m.label === label);
+      return existing || { label, value: "0", color: "text-gray-800" };
+    }) : campaign.metrics;
+
   return (
     <Card className="bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200/80 rounded-2xl">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1 min-w-0">
-            <div className={`p-2 rounded-lg ${campaign.type === "email" ? "bg-teal-50" : "bg-blue-50"}`}>{campaign.type === "email" ? <Mail className="h-4 w-4 text-teal-600" /> : <Phone className="h-4 w-4 text-blue-600" />}</div>
+            <div className={`p-2 rounded-lg ${campaign.type === "email" ? "bg-teal-50" : campaign.type === "phone" ? "bg-blue-50" : "bg-purple-50"}`}>
+              {campaign.type === "email" ? <Mail className="h-4 w-4 text-teal-600" /> : 
+               campaign.type === "phone" ? <Phone className="h-4 w-4 text-blue-600" /> :
+               <Linkedin className="h-4 w-4 text-purple-600" />}
+            </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-3 mb-2">
                 <Badge variant="secondary" className={`${config.color} text-xs px-2 py-0.5 rounded-full font-medium`}><config.icon className="w-3 h-3 mr-1" />{campaign.status.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}</Badge>
                 {campaign.owner && (<div className="flex items-center gap-2 text-xs text-gray-600"><div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center"><span className="text-xs font-medium text-gray-700">{campaign.owner.initials}</span></div><span className="font-medium">{campaign.owner.name}</span></div>)}
               </div>
-              <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1">{campaign.name}</h3>
-              <p className="text-xs text-gray-500 truncate">{campaign.sequence}</p>
+              <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1">
+                {cardConfig?.title || campaign.name}
+              </h3>
+              <p className="text-xs text-gray-500 truncate">
+                {cardConfig?.description || campaign.sequence}
+              </p>
             </div>
           </div>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          {campaign.metrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-semibold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
+        <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-semibold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" size="sm" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs"><Eye className="w-3 h-3 mr-1" />Details</Button>
-          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs ${actionButton.variant === "default" ? "bg-teal-600 hover:bg-teal-700 text-white" : "border-gray-300 hover:bg-gray-100"}`}><actionButton.icon className="w-3 h-3 mr-1" />{actionButton.label}</Button>
+          {secondaryButton && (
+            <Button variant={secondaryButton.variant} size="sm" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs">
+              <secondaryButton.icon className="w-3 h-3 mr-1" />{secondaryButton.label}
+            </Button>
+          )}
+          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs ${actionButton.variant === "default" ? "bg-teal-600 hover:bg-teal-700 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
+            <actionButton.icon className="w-3 h-3 mr-1" />{actionButton.label}
+          </Button>
         </div>
       </CardContent>
     </Card>
@@ -330,8 +451,8 @@ export default function CampaignDashboard() {
   const uniqueOwners = Array.from(new Set(campaigns.filter((c) => c.owner).map((c) => c.owner!.name)));
   const uniqueChannels = Array.from(new Set(campaigns.map((c) => c.type)));
   
-  const [selectedOwner, setSelectedOwner] = useState<string>(uniqueOwners[0] || "");
-  const [selectedChannel, setSelectedChannel] = useState<string>(uniqueChannels[0] || "");
+  const [selectedOwner, setSelectedOwner] = useState<string>("all");
+  const [selectedChannel, setSelectedChannel] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const itemsPerPage = 6;
@@ -339,8 +460,8 @@ export default function CampaignDashboard() {
   const filteredCampaigns = campaigns.filter(
     (campaign) =>
       (selectedStatus === "all" || campaign.status === selectedStatus) &&
-      (campaign.owner?.name === selectedOwner) &&
-      (campaign.type === selectedChannel)
+      (selectedOwner === "all" || campaign.owner?.name === selectedOwner) &&
+      (selectedChannel === "all" || campaign.type === selectedChannel)
   );
   const totalPages = Math.ceil(filteredCampaigns.length / itemsPerPage);
   const paginatedCampaigns = filteredCampaigns.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -350,7 +471,6 @@ export default function CampaignDashboard() {
     draft: campaigns.filter((c) => c.status === "draft").length,
     "on-hold": campaigns.filter((c) => c.status === "on-hold").length,
     "in-progress": campaigns.filter((c) => c.status === "in-progress").length,
-    all: campaigns.length,
   };
   const tabOrder = Object.keys(statusCounts) as (keyof typeof statusCounts)[];
 
@@ -376,10 +496,17 @@ export default function CampaignDashboard() {
               </Tabs>
               <div className="flex items-center gap-2 ml-4">
                 <select value={selectedOwner} onChange={(e) => setSelectedOwner(e.target.value)} className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-teal-500">
+                  <option value="all">All Owners</option>
                   {uniqueOwners.map((owner) => (<option key={owner} value={owner}>{owner}</option>))}
                 </select>
                 <select value={selectedChannel} onChange={(e) => setSelectedChannel(e.target.value)} className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-teal-500">
-                  {uniqueChannels.map((channel) => (<option key={channel} value={channel}>{channel.charAt(0).toUpperCase() + channel.slice(1)}</option>))}
+                  <option value="all">All Channels</option>
+                  {uniqueChannels.map((channel) => {
+                    const displayName = channel === 'linkedin-outbound' ? 'Linkedin Outbound' : 
+                                       channel === 'linkedin-inbound' ? 'Linkedin Inbound' :
+                                       channel.charAt(0).toUpperCase() + channel.slice(1);
+                    return (<option key={channel} value={channel}>{displayName}</option>);
+                  })}
                 </select>
               </div>
             </div>
