@@ -242,15 +242,15 @@ function Sidebar() {
         <div className="p-2"><ChevronsRightLeft className="w-6 h-6 text-teal-600" /></div>
         <div className="w-full h-[1px] bg-gray-200" />
         <nav className="flex flex-col items-center gap-2">
-          <a className="p-3 bg-teal-50 rounded-full text-teal-600" href="#"><Home className="w-5 h-5" /></a>
-          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500" href="#"><BarChart3 className="w-5 h-5" /></a>
-          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500" href="#"><Target className="w-5 h-5" /></a>
-          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500" href="#"><Bell className="w-5 h-5" /></a>
+          <a className="p-3 bg-teal-50 rounded-full text-teal-600 transition-all duration-300 ease-in-out hover:bg-teal-100" href="#"><Home className="w-5 h-5" /></a>
+          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500 transition-all duration-300 ease-in-out" href="#"><BarChart3 className="w-5 h-5" /></a>
+          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500 transition-all duration-300 ease-in-out" href="#"><Target className="w-5 h-5" /></a>
+          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500 transition-all duration-300 ease-in-out" href="#"><Bell className="w-5 h-5" /></a>
         </nav>
         <div className="w-full h-[1px] bg-gray-200" />
         <div className="flex flex-col items-center gap-2">
           <div className="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-700 font-semibold">P</div>
-          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500" href="#"><Settings className="w-5 h-5" /></a>
+          <a className="p-3 hover:bg-gray-100 rounded-full text-gray-500 transition-all duration-300 ease-in-out" href="#"><Settings className="w-5 h-5" /></a>
         </div>
       </div>
     </aside>
@@ -261,12 +261,12 @@ function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () 
   return (
     <header className="py-4 px-8 flex items-center justify-between">
       <div>
-        <h1 className="text-xl font-bold text-gray-800">Dashboard</h1>
-        <p className="text-sm text-gray-500">Welcome back! Here's what's happening with your campaigns.</p>
+        <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
+        <p className="text-sm text-gray-500 tracking-wide">Welcome back! Here's what's happening with your campaigns.</p>
       </div>
       <div className="flex items-center gap-4">
         <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700">Credits: 980</div>
-        <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative">
+        <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative transition-all duration-300 ease-in-out hover:shadow-md">
           <Bell className="w-4 h-4" />
           {unreadCount > 0 && (
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
@@ -280,21 +280,21 @@ function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () 
 function StatCard({ title, value, icon: Icon, pillClass, breakdown, isExpanded, onToggleExpanded }: { title: string; value: string; icon: React.ComponentType<any>; pillClass: string; breakdown?: { label: ChannelKey; value: string; icon: React.ComponentType<any> }[]; isExpanded?: boolean; onToggleExpanded?: () => void }) {
 
   return (
-    <Card className="bg-white/80 backdrop-blur-sm border border-gray-200/80 shadow-lg hover:shadow-xl transition-shadow rounded-2xl">
+    <Card className="bg-white backdrop-blur-sm border border-gray-300 shadow-lg hover:shadow-xl transition-shadow rounded-2xl">
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-lg text-white ${pillClass}`}><Icon className="w-4 h-4" /></div>
             <div>
-              <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide">{title}</p>
-              <p className="text-2xl leading-7 font-extrabold text-gray-900">{value}</p>
+              <p className="text-[11px] font-medium text-gray-500 uppercase tracking-wider">{title}</p>
+              <p className="text-2xl leading-7 font-bold text-gray-900">{value}</p>
             </div>
           </div>
           {breakdown && (<button onClick={onToggleExpanded} className="p-1 text-gray-400 hover:text-gray-600"><ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} /></button>)}
         </div>
-        <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isExpanded ? 'max-h-40 mt-3 pt-3 border-t border-gray-100/80' : 'max-h-0'}`}>
+        <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isExpanded ? 'max-h-40 mt-3 pt-3 border-t border-gray-200' : 'max-h-0'}`}>
           <div className="space-y-2">
-            {breakdown?.map((b) => (<div key={b.label} className="flex items-center justify-between text-xs"><div className="flex items-center gap-2 text-gray-600"><b.icon className="w-3.5 h-3.5 text-gray-400" /><span>{b.label}</span></div><span className="font-semibold text-gray-900">{b.value}</span></div>))}
+            {breakdown?.map((b) => (<div key={b.label} className="flex items-center justify-between text-xs tracking-wide"><div className="flex items-center gap-2 text-gray-600"><b.icon className="w-3.5 h-3.5 text-gray-400" /><span className="font-medium">{b.label}</span></div><span className="font-bold text-gray-900">{b.value}</span></div>))}
           </div>
         </div>
       </CardContent>
@@ -326,16 +326,16 @@ function ChatBox() {
   const [message, setMessage] = useState("");
   return (
     <div className="text-center mb-12">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4">Who do you want to sell to?</h2>
+      <h2 className="text-3xl font-bold text-gray-800 mb-4 tracking-wide">Who do you want to sell to?</h2>
       <div className="max-w-2xl mx-auto">
-        <Card className="bg-white/80 backdrop-blur-sm shadow-lg border border-gray-200/80 rounded-2xl">
+        <Card className="bg-white backdrop-blur-sm shadow-lg border border-gray-300 rounded-2xl">
           <CardContent className="p-4">
             <div className="flex items-center">
-              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What type of campaign would you like to build next?" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none" />
-              <div className="flex items-center gap-2">
+              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Ask anything" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
+              <div className="flex items-center gap-4 pr-2">
                 <Mic className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Paperclip className="w-4 h-4 text-gray-500 cursor-pointer" />
-                <Button size="icon" className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-8 h-8"><Send className="w-4 h-4" /></Button>
+                <Button size="icon" className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-8 h-8 transition-all duration-300 ease-in-out"><Send className="w-4 h-4" /></Button>
               </div>
             </div>
           </CardContent>
@@ -359,7 +359,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
     }) : campaign.metrics;
 
   return (
-    <Card className="bg-white/80 backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200/80 rounded-2xl">
+    <Card className="bg-white backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-300 rounded-2xl">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -373,10 +373,10 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
                 <Badge variant="secondary" className={`${config.color} text-xs px-2 py-0.5 rounded-full font-medium`}><config.icon className="w-3 h-3 mr-1" />{campaign.status.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}</Badge>
                 {campaign.owner && (<div className="flex items-center gap-2 text-xs text-gray-600"><div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center"><span className="text-xs font-medium text-gray-700">{campaign.owner.initials}</span></div><span className="font-medium">{campaign.owner.name}</span></div>)}
               </div>
-              <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1">
+              <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1 tracking-wide">
                 {cardConfig?.title || campaign.name}
               </h3>
-              <p className="text-xs text-gray-500 truncate">
+              <p className="text-xs text-gray-500 truncate tracking-wide">
                 {cardConfig?.description || campaign.sequence}
               </p>
             </div>
@@ -385,15 +385,15 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
       </CardHeader>
       <CardContent className="pt-0">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-semibold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
+          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
         <div className="flex gap-2">
           {secondaryButton && (
-            <Button variant={secondaryButton.variant} size="sm" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs">
+            <Button variant={secondaryButton.variant} size="sm" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs transition-all duration-300 ease-in-out">
               <secondaryButton.icon className="w-3 h-3 mr-1" />{secondaryButton.label}
             </Button>
           )}
-          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs ${actionButton.variant === "default" ? "bg-teal-600 hover:bg-teal-700 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
+          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs transition-all duration-300 ease-in-out ${actionButton.variant === "default" ? "bg-teal-600 hover:bg-teal-700 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
             <actionButton.icon className="w-3 h-3 mr-1" />{actionButton.label}
           </Button>
         </div>
@@ -429,23 +429,23 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
 
     return (
         <div 
-            className={`p-4 border-b border-gray-200/80 cursor-pointer hover:bg-gray-50/50 ${!notification.read ? 'bg-blue-50/30' : ''} group relative`}
+            className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50/50 ${!notification.read ? 'bg-blue-50/30' : ''} group relative`}
             onClick={handleClick}
         >
             <div className="flex items-start gap-3">
-                <Icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${color}`} />
-                <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start gap-3 mb-1">
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                            {!notification.read && (
-                                <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
-                            )}
-                            <p className={`font-semibold text-sm text-gray-800 truncate ${!notification.read ? 'font-bold' : ''}`}>
+                <Icon className={`w-5 h-5 mt-1 flex-shrink-0 ${color}`} />
+                <div className="flex-1">
+                    <div className="flex justify-between items-start">
+                        <div className="flex items-start gap-2">
+                            <p className={`font-semibold text-sm text-gray-800 pr-4 tracking-wide ${!notification.read ? 'font-bold' : ''}`}>
                                 {notification.title}
                             </p>
+                            {!notification.read && (
+                                <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1" />
+                            )}
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                            <span className="text-xs text-gray-500 whitespace-nowrap">{notification.date}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500 flex-shrink-0">{notification.date}</span>
                             {notification.read && (
                                 <Button
                                     variant="ghost"
@@ -458,7 +458,7 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
                             )}
                         </div>
                     </div>
-                    <p className={`text-sm text-gray-600 ${!notification.read ? 'font-medium' : ''}`}>
+                    <p className={`text-sm text-gray-600 mt-1 tracking-wide ${!notification.read ? 'font-medium' : ''}`}>
                         {notification.body}
                     </p>
                     <Button variant="link" className="p-0 h-auto mt-2 text-teal-600 text-sm">{notification.cta}</Button>
@@ -481,9 +481,9 @@ function NotificationDrawer({ isOpen, onClose, notifications, onMarkAsRead, onMa
     return (
         <>
             <div className={`fixed inset-0 bg-black/30 z-30 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
-            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white/80 backdrop-blur-sm shadow-2xl z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className="flex items-center justify-between p-4 border-b border-gray-200/80">
-                    <h2 className="text-lg font-semibold text-gray-800">Notifications</h2>
+            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white backdrop-blur-sm shadow-xl z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                    <h2 className="text-lg font-semibold text-gray-800 tracking-wide">Notifications</h2>
                     <div className="flex items-center gap-2">
                         {unreadCount > 0 && (
                             <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-teal-600 hover:text-teal-700">
@@ -566,8 +566,9 @@ export default function CampaignDashboard() {
         <Header onNotificationClick={() => setIsNotificationsOpen(true)} unreadCount={unreadCount} />
         <StatsRow />
         <ChatBox />
-        <Card className="bg-white/70 backdrop-blur-sm shadow-xl border border-gray-200/80 rounded-2xl">
-          <CardHeader className="p-4 border-b border-gray-200/80">
+        <section className="px-8">
+          <Card className="bg-white backdrop-blur-sm shadow-xl border border-gray-300 rounded-2xl">
+          <CardHeader className="p-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <Tabs value={selectedStatus} onValueChange={(value) => setSelectedStatus(value)} className="flex-1">
                 <TabsList className="bg-gray-100/80 p-1 rounded-lg">
@@ -601,7 +602,7 @@ export default function CampaignDashboard() {
               {paginatedCampaigns.map((campaign) => (<CampaignCard key={campaign.id} campaign={campaign} />))}
             </div>
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-200/80">
+              <div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-200">
                 <Button variant="ghost" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"><ChevronLeft className="w-4 h-4 mr-1" />Previous</Button>
                 <span className="text-sm text-gray-600">Page {currentPage} of {totalPages}</span>
                 <Button variant="ghost" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Next<ChevronRight className="w-4 h-4 ml-1" /></Button>
@@ -609,6 +610,7 @@ export default function CampaignDashboard() {
             )}
           </CardContent>
         </Card>
+        </section>
       </main>
       <NotificationDrawer 
         isOpen={isNotificationsOpen} 
