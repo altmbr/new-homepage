@@ -77,15 +77,16 @@ interface Notification {
   body: string;
   cta: string;
   date: string;
+  read: boolean;
 }
 
 const notifications: Notification[] = [
-    { id: 1, type: "Updates", title: "First email sent: Vibe Outreach 🎉", body: "Your campaign: Vibe Outreach is live — first email delivered.", cta: "View Campaign", date: "5m ago" },
-    { id: 2, type: "Updates", title: "First LinkedIn request sent: Enterprise Leads 🎉", body: "Your campaign: Enterprise Leads is live — first LinkedIn request sent.", cta: "View Campaign", date: "1h ago" },
-    { id: 5, type: "Leads", title: "John Doe replied to your campaign (Vibe Outreach)", body: "“Thanks for reaching out, I'm interested in learning more…”", cta: "View in Inbox", date: "3h ago" },
-    { id: 7, type: "Blocker", title: "Email campaign paused: Nurture Sequence", body: "Nurture Sequence has been paused. Investigate.", cta: "View Campaign", date: "1d ago" },
-    { id: 9, type: "Leads", title: "⚠️ 5 tasks overdue 7 days", body: "Quick wins are slipping—follow up now.", cta: "View Overdue Tasks", date: "2d ago" },
-    { id: 11, type: "Billing", title: "Account balance –$50.00", body: "All campaigns paused until you add funds.", cta: "Add funds", date: "3d ago" },
+    { id: 1, type: "Updates", title: "First email sent: Vibe Outreach 🎉", body: "Your campaign: Vibe Outreach is live — first email delivered.", cta: "View Campaign", date: "5m ago", read: false },
+    { id: 2, type: "Updates", title: "First LinkedIn request sent: Enterprise Leads 🎉", body: "Your campaign: Enterprise Leads is live — first LinkedIn request sent.", cta: "View Campaign", date: "1h ago", read: false },
+    { id: 5, type: "Leads", title: "John Doe replied to your campaign (Vibe Outreach)", body: "\"Thanks for reaching out, I'm interested in learning more…\"", cta: "View in Inbox", date: "3h ago", read: true },
+    { id: 7, type: "Blocker", title: "Email campaign paused: Nurture Sequence", body: "Nurture Sequence has been paused. Investigate.", cta: "View Campaign", date: "1d ago", read: false },
+    { id: 9, type: "Leads", title: "⚠️ 5 tasks overdue 7 days", body: "Quick wins are slipping—follow up now.", cta: "View Overdue Tasks", date: "2d ago", read: true },
+    { id: 11, type: "Billing", title: "Account balance –$50.00", body: "All campaigns paused until you add funds.", cta: "Add funds", date: "3d ago", read: false },
 ];
 
 
@@ -256,7 +257,7 @@ function Sidebar() {
   );
 }
 
-function Header({ onNotificationClick }: { onNotificationClick: () => void }) {
+function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () => void; unreadCount: number }) {
   return (
     <header className="py-4 px-8 flex items-center justify-between">
       <div>
@@ -267,7 +268,9 @@ function Header({ onNotificationClick }: { onNotificationClick: () => void }) {
         <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700">Credits: 980</div>
         <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative">
           <Bell className="w-4 h-4" />
-          <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+          {unreadCount > 0 && (
+            <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+          )}
         </Button>
       </div>
     </header>
@@ -399,7 +402,11 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
   );
 }
 
-function NotificationItem({ notification }: { notification: Notification }) {
+function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: { 
+    notification: Notification; 
+    onMarkAsRead: (id: number) => void;
+    onMarkAsUnread: (id: number) => void;
+}) {
     const typeConfig = {
         Updates: { icon: CheckCircle, color: "text-green-500" },
         Leads: { icon: MessageCircle, color: "text-blue-500" },
@@ -409,16 +416,51 @@ function NotificationItem({ notification }: { notification: Notification }) {
     const Icon = typeConfig[notification.type].icon;
     const color = typeConfig[notification.type].color;
 
+    const handleClick = () => {
+        if (!notification.read) {
+            onMarkAsRead(notification.id);
+        }
+    };
+
+    const handleMarkAsUnread = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onMarkAsUnread(notification.id);
+    };
+
     return (
-        <div className="p-4 border-b border-gray-200/80">
+        <div 
+            className={`p-4 border-b border-gray-200/80 cursor-pointer hover:bg-gray-50/50 ${!notification.read ? 'bg-blue-50/30' : ''} group relative`}
+            onClick={handleClick}
+        >
             <div className="flex items-start gap-3">
                 <Icon className={`w-5 h-5 mt-1 flex-shrink-0 ${color}`} />
                 <div className="flex-1">
                     <div className="flex justify-between items-start">
-                        <p className="font-semibold text-sm text-gray-800 pr-4">{notification.title}</p>
-                        <span className="text-xs text-gray-500 flex-shrink-0">{notification.date}</span>
+                        <div className="flex items-start gap-2">
+                            <p className={`font-semibold text-sm text-gray-800 pr-4 ${!notification.read ? 'font-bold' : ''}`}>
+                                {notification.title}
+                            </p>
+                            {!notification.read && (
+                                <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-1" />
+                            )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500 flex-shrink-0">{notification.date}</span>
+                            {notification.read && (
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={handleMarkAsUnread}
+                                    className="opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2 py-1 h-auto text-gray-500 hover:text-gray-700"
+                                >
+                                    Mark unread
+                                </Button>
+                            )}
+                        </div>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">{notification.body}</p>
+                    <p className={`text-sm text-gray-600 mt-1 ${!notification.read ? 'font-medium' : ''}`}>
+                        {notification.body}
+                    </p>
                     <Button variant="link" className="p-0 h-auto mt-2 text-teal-600 text-sm">{notification.cta}</Button>
                 </div>
             </div>
@@ -426,17 +468,35 @@ function NotificationItem({ notification }: { notification: Notification }) {
     );
 }
 
-function NotificationDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function NotificationDrawer({ isOpen, onClose, notifications, onMarkAsRead, onMarkAsUnread, onMarkAllAsRead }: { 
+    isOpen: boolean; 
+    onClose: () => void; 
+    notifications: Notification[]; 
+    onMarkAsRead: (id: number) => void; 
+    onMarkAsUnread: (id: number) => void;
+    onMarkAllAsRead: () => void;
+}) {
+    const unreadCount = notifications.filter(n => !n.read).length;
+    
     return (
         <>
             <div className={`fixed inset-0 bg-black/30 z-30 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
             <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white/80 backdrop-blur-sm shadow-2xl z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex items-center justify-between p-4 border-b border-gray-200/80">
                     <h2 className="text-lg font-semibold text-gray-800">Notifications</h2>
-                    <Button variant="ghost" size="icon" onClick={onClose}><X className="w-5 h-5" /></Button>
+                    <div className="flex items-center gap-2">
+                        {unreadCount > 0 && (
+                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-teal-600 hover:text-teal-700">
+                                Mark all as read
+                            </Button>
+                        )}
+                        <Button variant="ghost" size="icon" onClick={onClose}><X className="w-5 h-5" /></Button>
+                    </div>
                 </div>
                 <div className="h-[calc(100%-57px)] overflow-y-auto">
-                    {notifications.map(n => <NotificationItem key={n.id} notification={n} />)}
+                    {notifications.map(n => 
+                        <NotificationItem key={n.id} notification={n} onMarkAsRead={onMarkAsRead} onMarkAsUnread={onMarkAsUnread} />
+                    )}
                 </div>
             </div>
         </>
@@ -455,7 +515,32 @@ export default function CampaignDashboard() {
   const [selectedChannel, setSelectedChannel] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [notificationState, setNotificationState] = useState(notifications);
   const itemsPerPage = 6;
+
+  const markNotificationAsRead = (id: number) => {
+    setNotificationState(prev => 
+      prev.map(notification => 
+        notification.id === id ? { ...notification, read: true } : notification
+      )
+    );
+  };
+
+  const markNotificationAsUnread = (id: number) => {
+    setNotificationState(prev => 
+      prev.map(notification => 
+        notification.id === id ? { ...notification, read: false } : notification
+      )
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotificationState(prev => 
+      prev.map(notification => ({ ...notification, read: true }))
+    );
+  };
+
+  const unreadCount = notificationState.filter(n => !n.read).length;
 
   const filteredCampaigns = campaigns.filter(
     (campaign) =>
@@ -478,7 +563,7 @@ export default function CampaignDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 text-gray-800">
       <Sidebar />
       <main className="pl-24 pr-8">
-        <Header onNotificationClick={() => setIsNotificationsOpen(true)} />
+        <Header onNotificationClick={() => setIsNotificationsOpen(true)} unreadCount={unreadCount} />
         <StatsRow />
         <ChatBox />
         <Card className="bg-white/70 backdrop-blur-sm shadow-xl border border-gray-200/80 rounded-2xl">
@@ -525,7 +610,14 @@ export default function CampaignDashboard() {
           </CardContent>
         </Card>
       </main>
-      <NotificationDrawer isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
+      <NotificationDrawer 
+        isOpen={isNotificationsOpen} 
+        onClose={() => setIsNotificationsOpen(false)} 
+        notifications={notificationState}
+        onMarkAsRead={markNotificationAsRead}
+        onMarkAsUnread={markNotificationAsUnread}
+        onMarkAllAsRead={markAllAsRead}
+      />
     </div>
   );
 }
