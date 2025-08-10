@@ -93,11 +93,11 @@ const notifications: Notification[] = [
 // ---------------- Config & Helpers ----------------
 
 const statusConfig = {
-  "in-progress": { color: "bg-blue-100 text-blue-800", icon: Play },
-  "on-hold": { color: "bg-amber-100 text-amber-800", icon: Pause },
-  paused: { color: "bg-gray-100 text-gray-800", icon: Pause },
-  draft: { color: "bg-orange-100 text-orange-800", icon: Eye },
-  ideas: { color: "bg-purple-100 text-purple-800", icon: TrendingUp },
+  "in-progress": { color: "bg-[#006B67]/10 text-[#006B67]/80", icon: Play },
+  "on-hold": { color: "bg-[#8D6E63]/10 text-[#8D6E63]/70", icon: Pause },
+  paused: { color: "bg-gray-100 text-gray-500", icon: Pause },
+  draft: { color: "bg-amber-50 text-amber-600/70", icon: Eye },
+  ideas: { color: "bg-[#4CAF50]/10 text-[#4CAF50]/70", icon: TrendingUp },
 };
 
 function mapStatusToGrouping(status: Campaign["status"]): string {
@@ -259,11 +259,11 @@ function Sidebar() {
 
 function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () => void; unreadCount: number }) {
   return (
-    <header className="py-4 px-8 max-w-6xl mx-auto flex items-center justify-between">
+    <header className="py-6 px-8 max-w-6xl mx-auto flex items-center justify-between">
       <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
       <div className="flex items-center gap-4">
-        <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700">Credits: 980</div>
-        <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative transition-all duration-300 ease-in-out hover:shadow-md">
+        <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700 shadow-lg">Credits: 980</div>
+        <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
           <Bell className="w-4 h-4" />
           {unreadCount > 0 && (
             <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
@@ -278,7 +278,7 @@ function StatCard({ title, value, icon: Icon, pillClass, breakdown, isExpanded, 
 
   return (
     <Card className="bg-white backdrop-blur-sm border border-gray-300 shadow-lg hover:shadow-xl transition-shadow rounded-2xl">
-      <CardContent className="px-6 py-2">
+      <CardContent className="px-6 py-0.5">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-lg text-white ${pillClass}`}><Icon className="w-4 h-4" /></div>
@@ -308,12 +308,12 @@ function StatsRow() {
   };
   
   return (
-    <section className="px-8 mb-20 max-w-6xl mx-auto">
+    <section className="px-8 mb-16 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-blue-500" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-teal-500" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Engagements" value={formatAbbr(totals.Engagements.total)} icon={MessageCircle} pillClass="bg-purple-500" breakdown={[{ label: "Email", value: formatAbbr(totals.Engagements.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engagements.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Interested" value={formatAbbr(totals.Interested.total)} icon={Target} pillClass="bg-emerald-500" breakdown={[{ label: "Email", value: formatAbbr(totals.Interested.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Interested.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Interested.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Interested.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-[#006B67]/80" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-[#4CAF50]/70" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Engagements" value={formatAbbr(totals.Engagements.total)} icon={MessageCircle} pillClass="bg-[#8D6E63]/80" breakdown={[{ label: "Email", value: formatAbbr(totals.Engagements.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engagements.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Interested" value={formatAbbr(totals.Interested.total)} icon={Target} pillClass="bg-[#4CAF50]/80" breakdown={[{ label: "Email", value: formatAbbr(totals.Interested.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Interested.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Interested.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Interested.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
       </div>
     </section>
   );
@@ -323,13 +323,25 @@ function ChatBox() {
   const [message, setMessage] = useState("");
   return (
     <div className="text-center mb-20">
-      <h2 className="text-3xl font-bold mb-4 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do you want to sell to?</h2>
+      <h2 className="text-3xl font-bold mb-6 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do you want to sell to?</h2>
       <div className="max-w-3xl mx-auto">
         <Card className="bg-white backdrop-blur-sm shadow-lg border border-gray-300 rounded-2xl">
           <CardContent className="p-4">
-            <div className="flex items-center">
-              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Name your audience or strategy" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
-              <div className="flex items-center gap-4 pr-2">
+            <div className="flex items-start">
+              <textarea 
+                value={message} 
+                onChange={(e) => setMessage(e.target.value)} 
+                placeholder="Name your audience or strategy" 
+                className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4 py-2 resize-none min-h-[40px] max-h-[120px] overflow-y-auto"
+                style={{ lineHeight: '1.5' }}
+                rows={1}
+                onInput={(e) => {
+                  const target = e.target as HTMLTextAreaElement;
+                  target.style.height = 'auto';
+                  target.style.height = Math.min(target.scrollHeight, 120) + 'px';
+                }}
+              />
+              <div className="flex items-center gap-4 pr-2 self-center">
                 <Mic className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Paperclip className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Button size="icon" className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-8 h-8 transition-all duration-300 ease-in-out"><Send className="w-4 h-4" /></Button>
@@ -357,7 +369,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
 
   return (
     <Card className="bg-white backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-300 rounded-2xl">
-      <CardHeader className="pb-2">
+      <CardHeader className="pb-0.5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1 min-w-0">
             <div className={`p-2 rounded-lg ${campaign.type === "email" ? "bg-teal-50" : campaign.type === "phone" ? "bg-blue-50" : "bg-purple-50"}`}>
@@ -380,7 +392,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-0 pb-2">
+      <CardContent className="pt-0 pb-0.5">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
@@ -405,10 +417,10 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
     onMarkAsUnread: (id: number) => void;
 }) {
     const typeConfig = {
-        Updates: { icon: CheckCircle, color: "text-green-500" },
-        Leads: { icon: MessageCircle, color: "text-blue-500" },
-        Blocker: { icon: AlertTriangle, color: "text-yellow-500" },
-        Billing: { icon: CreditCard, color: "text-red-500" },
+        Updates: { icon: CheckCircle, color: "text-[#4CAF50]" },
+        Leads: { icon: MessageCircle, color: "text-[#006B67]" },
+        Blocker: { icon: AlertTriangle, color: "text-[#8D6E63]" },
+        Billing: { icon: CreditCard, color: "text-[#F44336]" },
     };
     const Icon = typeConfig[notification.type].icon;
     const color = typeConfig[notification.type].color;
@@ -426,11 +438,13 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
 
     return (
         <div 
-            className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50/50 ${!notification.read ? 'bg-blue-50/30' : ''} group relative`}
+            className={`px-6 py-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50/50 transition-all duration-300 ${!notification.read ? 'bg-blue-50/20' : ''} group relative`}
             onClick={handleClick}
         >
             <div className="flex items-start gap-3">
-                <Icon className={`w-5 h-5 mt-0.5 flex-shrink-0 ${color}`} />
+                <div className={`p-2 rounded-lg ${notification.type === 'Updates' ? 'bg-[#4CAF50]/10' : notification.type === 'Leads' ? 'bg-[#006B67]/10' : notification.type === 'Blocker' ? 'bg-[#8D6E63]/10' : 'bg-[#F44336]/10'}`}>
+                    <Icon className={`w-4 h-4 flex-shrink-0 ${color}`} />
+                </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start gap-3 mb-1">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -448,7 +462,7 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
                                     variant="ghost"
                                     size="sm"
                                     onClick={handleMarkAsUnread}
-                                    className="opacity-0 group-hover:opacity-100 transition-opacity text-xs px-2 py-1 h-auto text-gray-500 hover:text-gray-700"
+                                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-xs px-2 py-1 h-auto text-gray-500 hover:text-gray-700 rounded-md"
                                 >
                                     Mark unread
                                 </Button>
@@ -458,7 +472,7 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
                     <p className={`text-sm text-gray-600 mt-1 tracking-wide ${!notification.read ? 'font-medium' : ''}`}>
                         {notification.body}
                     </p>
-                    <Button variant="link" className="p-0 h-auto mt-2 text-teal-600 text-sm">{notification.cta}</Button>
+                    <Button variant="link" className="p-0 h-auto mt-2 text-[#006B67] text-sm font-medium">{notification.cta}</Button>
                 </div>
             </div>
         </div>
@@ -478,12 +492,12 @@ function NotificationDrawer({ isOpen, onClose, notifications, onMarkAsRead, onMa
     return (
         <>
             <div className={`fixed inset-0 bg-black/30 z-30 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
-            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white backdrop-blur-sm shadow-xl z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-800 tracking-wide">Notifications</h2>
+            <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-b from-white to-[#FAFAFA] backdrop-blur-sm shadow-[0_4px_12px_rgba(0,0,0,0.05)] z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ fontFamily: 'Satoshi, sans-serif' }}>
+                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                    <h2 className="text-xl font-bold text-gray-800 tracking-wide">Notifications</h2>
                     <div className="flex items-center gap-2">
                         {unreadCount > 0 && (
-                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-teal-600 hover:text-teal-700">
+                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-[#006B67] hover:text-[#006B67]/80 transition-all duration-300">
                                 Mark all as read
                             </Button>
                         )}
@@ -565,7 +579,7 @@ export default function CampaignDashboard() {
         <ChatBox />
         <section className="px-8 max-w-6xl mx-auto">
           <Card className="bg-white backdrop-blur-sm shadow-xl border border-gray-300 rounded-2xl">
-          <CardHeader className="px-10 py-3 border-b border-gray-200">
+          <CardHeader className="px-10 py-1 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <Tabs value={selectedStatus} onValueChange={(value) => setSelectedStatus(value)} className="flex-1">
                 <TabsList className="bg-gray-100/80 p-1 rounded-lg">
@@ -594,7 +608,7 @@ export default function CampaignDashboard() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="px-10 py-3">
+          <CardContent className="px-10 py-1">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
               {paginatedCampaigns.map((campaign) => (<CampaignCard key={campaign.id} campaign={campaign} />))}
             </div>
