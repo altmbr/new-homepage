@@ -260,7 +260,7 @@ function Sidebar() {
 function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () => void; unreadCount: number }) {
   return (
     <header className="py-6 px-8 max-w-6xl mx-auto flex items-center justify-between">
-      <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
+      <h1 className="text-xl font-bold text-[#006B67] tracking-wide">Dashboard</h1>
       <div className="flex items-center gap-4">
         <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700 shadow-lg">Credits: 980</div>
         <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
@@ -506,7 +506,7 @@ function NotificationDrawer({ isOpen, onClose, notifications, onMarkAsRead, onMa
                     <h2 className="text-xl font-bold text-[#3A5A5E] tracking-wide">Notifications</h2>
                     <div className="flex items-center gap-2">
                         {unreadCount > 0 && (
-                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-[#29CC6A] hover:text-[#29CC6A]/80 transition-all duration-300">
+                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-sm text-[#29CC6A] hover:text-[#29CC6A]/80 transition-all duration-300">
                                 Mark all as read
                             </Button>
                         )}
