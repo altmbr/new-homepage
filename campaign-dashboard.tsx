@@ -283,8 +283,8 @@ function StatCard({ title, value, icon: Icon, pillClass, breakdown, isExpanded, 
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-lg text-white ${pillClass}`}><Icon className="w-4 h-4" /></div>
             <div>
-              <p className="text-[11px] font-medium text-gray-500 uppercase tracking-wider">{title}</p>
-              <p className="text-2xl leading-7 font-bold text-gray-900">{value}</p>
+              <p className="text-[11px] font-medium text-[#3A5A5E] uppercase tracking-wider">{title}</p>
+              <p className="text-2xl leading-7 font-bold text-[#3A5A5E]">{value}</p>
             </div>
           </div>
           {breakdown && (<button onClick={onToggleExpanded} className="p-1 text-gray-400 hover:text-gray-600"><ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} /></button>)}
@@ -310,10 +310,10 @@ function StatsRow() {
   return (
     <section className="px-8 mb-16 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-[#006B67]/80" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-[#4CAF50]/70" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Engagements" value={formatAbbr(totals.Engagements.total)} icon={MessageCircle} pillClass="bg-[#8D6E63]/80" breakdown={[{ label: "Email", value: formatAbbr(totals.Engagements.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engagements.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Interested" value={formatAbbr(totals.Interested.total)} icon={Target} pillClass="bg-[#4CAF50]/80" breakdown={[{ label: "Email", value: formatAbbr(totals.Interested.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Interested.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Interested.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Interested.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Engagements" value={formatAbbr(totals.Engagements.total)} icon={MessageCircle} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Engagements.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engagements.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Interested" value={formatAbbr(totals.Interested.total)} icon={Target} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Interested.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Interested.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Interested.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Interested.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
       </div>
     </section>
   );
@@ -344,7 +344,16 @@ function ChatBox() {
               <div className="flex items-center gap-4 pr-2 self-center">
                 <Mic className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Paperclip className="w-4 h-4 text-gray-500 cursor-pointer" />
-                <Button size="icon" className="rounded-full bg-teal-600 hover:bg-teal-700 text-white w-8 h-8 transition-all duration-300 ease-in-out"><Send className="w-4 h-4" /></Button>
+                <Button 
+                  size="icon" 
+                  className={`rounded-full text-white w-8 h-8 transition-all duration-300 ease-in-out ${
+                    message.trim() 
+                      ? 'bg-[#00807B] hover:bg-[#00807B]/90' 
+                      : 'bg-[#669399] hover:bg-[#669399]/90'
+                  }`}
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           </CardContent>
@@ -402,7 +411,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
               <secondaryButton.icon className="w-3 h-3 mr-1" />{secondaryButton.label}
             </Button>
           )}
-          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs transition-all duration-300 ease-in-out ${actionButton.variant === "default" ? "bg-teal-600 hover:bg-teal-700 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
+          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs transition-all duration-300 ease-in-out ${actionButton.variant === "default" ? "bg-[#00807B] hover:bg-[#00807B]/90 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
             <actionButton.icon className="w-3 h-3 mr-1" />{actionButton.label}
           </Button>
         </div>
