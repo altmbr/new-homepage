@@ -560,7 +560,7 @@ export default function CampaignDashboard() {
   const tabOrder = Object.keys(statusCounts) as (keyof typeof statusCounts)[];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 text-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-[#EEF2F5] via-[#E8ECF0] to-[#DFE4E8] text-gray-800">
       <Sidebar />
       <main className="pl-24 pr-8">
         <Header onNotificationClick={() => setIsNotificationsOpen(true)} unreadCount={unreadCount} />
