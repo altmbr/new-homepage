@@ -50,21 +50,21 @@ const cardData: CardConfig[] = [
   { grouping: "Draft", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
   { grouping: "Draft", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
   { grouping: "Draft", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
-  { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
-  { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
-  { grouping: "In Progress", channel: "Email", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
-  { grouping: "In Progress", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
-  { grouping: "In Progress", channel: "Dialer", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" }
+  { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
+  { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
+  { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
+  { grouping: "In Progress", channel: "Email", primaryAction: "View", secondaryAction: "Pause", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
+  { grouping: "In Progress", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Pause", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
+  { grouping: "In Progress", channel: "Dialer", primaryAction: "View", secondaryAction: "Pause", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" }
 ]
 
 const campaigns: Campaign[] = [
-  { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "156" }, { label: "Engaged", value: "23" }, { label: "Interested", value: "8" }], owner: { name: "Sarah Chen", initials: "SC" } },
-  { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreach", value: "342" }, { label: "Engaged", value: "48" }, { label: "Interested", value: "14" }], owner: { name: "Mike Johnson", initials: "MJ" } },
+  { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreached", value: "156" }, { label: "Engaged", value: "23" }, { label: "Leads", value: "8" }], owner: { name: "Sarah Chen", initials: "SC" } },
+  { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreached", value: "342" }, { label: "Engaged", value: "48" }, { label: "Leads", value: "14" }], owner: { name: "Mike Johnson", initials: "MJ" } },
   { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
   { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }] },
-  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "289" }, { label: "Engaged", value: "67" }, { label: "Interested", value: "19" }], owner: { name: "Emma Davis", initials: "ED" } },
-  { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "Outreach", value: "543" }, { label: "Engaged", value: "67" }, { label: "Interested", value: "12" }], owner: { name: "John Smith", initials: "JS" } },
+  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreached", value: "289" }, { label: "Engaged", value: "67" }, { label: "Leads", value: "19" }], owner: { name: "Emma Davis", initials: "ED" } },
+  { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "Outreached", value: "543" }, { label: "Engaged", value: "67" }, { label: "Leads", value: "12" }], owner: { name: "John Smith", initials: "JS" } },
   { id: "7", name: "Phone Campaign", sequence: "Discovery Calls", status: "draft", type: "phone", metrics: [{ label: "People", value: "892" }, { label: "Companies", value: "124" }], owner: { name: "Lisa Wang", initials: "LW" } }
 ];
 
@@ -188,8 +188,8 @@ function formatAbbr(n: number) {
   return `${n}`;
 }
 
-type MetricKey = "Outreach" | "Engagements" | "Interested";
-const METRIC_KEYS: MetricKey[] = ["Outreach", "Engagements", "Interested"];
+type MetricKey = "Outreached" | "Engaged" | "Leads";
+const METRIC_KEYS: MetricKey[] = ["Outreached", "Engaged", "Leads"];
 
 type ChannelKey = "Email" | "LinkedIn Messages" | "LinkedIn Posts" | "Dialer";
 
@@ -214,9 +214,9 @@ function aggregateMetrics(data: Campaign[]) {
   }
 
   const totals: Record<MetricKey, { total: number; byChannel: Record<ChannelKey, number> }> = {
-    Outreach: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
-    Engagements: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
-    Interested: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
+    Outreached: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
+    Engaged: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
+    Leads: { total: 0, byChannel: { Email: 0, "LinkedIn Messages": 0, "LinkedIn Posts": 0, Dialer: 0 } },
   };
 
   for (const c of data) {
@@ -284,7 +284,7 @@ function StatCard({ title, value, icon: Icon, pillClass, breakdown, isExpanded, 
             <div className={`p-2 rounded-lg text-white ${pillClass}`}><Icon className="w-4 h-4" /></div>
             <div>
               <p className="text-[11px] font-medium text-[#3A5A5E] uppercase tracking-wider">{title}</p>
-              <p className="text-2xl leading-7 font-bold text-[#3A5A5E]">{value}</p>
+              <p className={`text-2xl leading-7 font-bold ${title === "Leads" ? "text-[#29CC6A] underline cursor-pointer" : "text-[#3A5A5E]"}`}>{value}</p>
             </div>
           </div>
           {breakdown && (<button onClick={onToggleExpanded} className="p-1 text-gray-400 hover:text-gray-600"><ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} /></button>)}
@@ -310,10 +310,10 @@ function StatsRow() {
   return (
     <section className="px-8 mb-16 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Engagements" value={formatAbbr(totals.Engagements.total)} icon={MessageCircle} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Engagements.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engagements.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engagements.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
-        <StatCard title="Interested" value={formatAbbr(totals.Interested.total)} icon={Target} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Interested.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Interested.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Interested.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Interested.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="In Progress" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Outreached" value={formatAbbr(totals.Outreached.total)} icon={Send} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreached.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreached.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreached.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreached.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Engaged" value={formatAbbr(totals.Engaged.total)} icon={MessageCircle} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Engaged.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Engaged.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Engaged.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Engaged.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
+        <StatCard title="Leads" value={formatAbbr(totals.Leads.total)} icon={Target} pillClass="bg-[#669399]" breakdown={[{ label: "Email", value: formatAbbr(totals.Leads.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Leads.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Leads.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Leads.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
       </div>
     </section>
   );
@@ -323,7 +323,7 @@ function ChatBox() {
   const [message, setMessage] = useState("");
   return (
     <div className="text-center mb-20">
-      <h2 className="text-3xl font-bold mb-6 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do you want to sell to?</h2>
+      <h2 className="text-3xl font-bold mb-6 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do <strong>you</strong> want to sell to?</h2>
       <div className="max-w-3xl mx-auto">
         <Card className="bg-white backdrop-blur-sm shadow-lg border border-gray-300 rounded-2xl">
           <CardContent className="p-4">
@@ -403,7 +403,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
       </CardHeader>
       <CardContent className="pt-0 pb-0.5">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.label === "Interested" ? "text-[#29CC6A]" : "text-[#3A5A5E]"}`}>{metric.value}</div><div className="text-[11px] text-[#3A5A5E] font-medium uppercase tracking-wider">{metric.label}</div></div>))}
+          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.label === "Leads" ? "text-[#29CC6A]" : "text-[#3A5A5E]"}`}>{metric.value}</div><div className="text-[11px] text-[#3A5A5E] font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
         <div className="flex gap-2">
           {secondaryButton && (
