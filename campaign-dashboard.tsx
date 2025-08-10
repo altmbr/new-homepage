@@ -260,10 +260,7 @@ function Sidebar() {
 function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () => void; unreadCount: number }) {
   return (
     <header className="py-4 px-8 flex items-center justify-between">
-      <div>
-        <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
-        <p className="text-sm text-gray-500 tracking-wide">Welcome back! Here's what's happening with your campaigns.</p>
-      </div>
+      <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
       <div className="flex items-center gap-4">
         <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700">Credits: 980</div>
         <Button onClick={onNotificationClick} variant="outline" size="icon" className="rounded-full bg-white/80 backdrop-blur-sm relative transition-all duration-300 ease-in-out hover:shadow-md">
@@ -326,12 +323,12 @@ function ChatBox() {
   const [message, setMessage] = useState("");
   return (
     <div className="text-center mb-12">
-      <h2 className="text-3xl font-bold text-gray-800 mb-4 tracking-wide">Who do you want to sell to?</h2>
+      <h2 className="text-3xl font-bold mb-4 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do you want to sell to?</h2>
       <div className="max-w-2xl mx-auto">
         <Card className="bg-white backdrop-blur-sm shadow-lg border border-gray-300 rounded-2xl">
           <CardContent className="p-4">
             <div className="flex items-center">
-              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Ask anything" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
+              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="You're the boss" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
               <div className="flex items-center gap-4 pr-2">
                 <Mic className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Paperclip className="w-4 h-4 text-gray-500 cursor-pointer" />
@@ -568,7 +565,7 @@ export default function CampaignDashboard() {
         <ChatBox />
         <section className="px-8">
           <Card className="bg-white backdrop-blur-sm shadow-xl border border-gray-300 rounded-2xl">
-          <CardHeader className="p-4 border-b border-gray-200">
+          <CardHeader className="px-10 py-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <Tabs value={selectedStatus} onValueChange={(value) => setSelectedStatus(value)} className="flex-1">
                 <TabsList className="bg-gray-100/80 p-1 rounded-lg">
@@ -597,12 +594,12 @@ export default function CampaignDashboard() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="p-4">
+          <CardContent className="px-10 py-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
               {paginatedCampaigns.map((campaign) => (<CampaignCard key={campaign.id} campaign={campaign} />))}
             </div>
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-center gap-4 pt-6 mt-6 border-t border-gray-200">
                 <Button variant="ghost" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"><ChevronLeft className="w-4 h-4 mr-1" />Previous</Button>
                 <span className="text-sm text-gray-600">Page {currentPage} of {totalPages}</span>
                 <Button variant="ghost" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="text-gray-600 hover:text-gray-900 hover:bg-gray-100">Next<ChevronRight className="w-4 h-4 ml-1" /></Button>
