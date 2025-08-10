@@ -50,21 +50,21 @@ const cardData: CardConfig[] = [
   { grouping: "Draft", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
   { grouping: "Draft", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
   { grouping: "Draft", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
+  { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
+  { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
   { grouping: "In Progress", channel: "Email", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
   { grouping: "In Progress", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" },
   { grouping: "In Progress", channel: "Dialer", primaryAction: "View", secondaryAction: "Pause", data: ["Outreach", "Engaged", "Interested"], title: "", description: "" }
 ]
 
 const campaigns: Campaign[] = [
-  { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "156" }, { label: "Engagements", value: "23" }, { label: "Interested", value: "8", color: "text-teal-600" }], owner: { name: "Sarah Chen", initials: "SC" } },
-  { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreach", value: "342" }, { label: "Engagements", value: "48" }, { label: "Interested", value: "14", color: "text-teal-600" }], owner: { name: "Mike Johnson", initials: "MJ" } },
+  { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "156" }, { label: "Engaged", value: "23" }, { label: "Interested", value: "8" }], owner: { name: "Sarah Chen", initials: "SC" } },
+  { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreach", value: "342" }, { label: "Engaged", value: "48" }, { label: "Interested", value: "14" }], owner: { name: "Mike Johnson", initials: "MJ" } },
   { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
   { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }] },
-  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "289" }, { label: "Engagements", value: "67" }, { label: "Interested", value: "19", color: "text-teal-600" }], owner: { name: "Emma Davis", initials: "ED" } },
-  { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "People", value: "543" }, { label: "Companies", value: "67" }], owner: { name: "John Smith", initials: "JS" } },
+  { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreach", value: "289" }, { label: "Engaged", value: "67" }, { label: "Interested", value: "19" }], owner: { name: "Emma Davis", initials: "ED" } },
+  { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "Outreach", value: "543" }, { label: "Engaged", value: "67" }, { label: "Interested", value: "12" }], owner: { name: "John Smith", initials: "JS" } },
   { id: "7", name: "Phone Campaign", sequence: "Discovery Calls", status: "draft", type: "phone", metrics: [{ label: "People", value: "892" }, { label: "Companies", value: "124" }], owner: { name: "Lisa Wang", initials: "LW" } }
 ];
 
@@ -373,7 +373,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
   const displayMetrics = cardConfig?.data.length ? 
     cardConfig.data.map(label => {
       const existing = campaign.metrics.find(m => m.label === label);
-      return existing || { label, value: "0", color: "text-gray-800" };
+      return existing || { label, value: "0" };
     }) : campaign.metrics;
 
   return (
@@ -389,7 +389,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-3 mb-2">
                 <Badge variant="secondary" className={`${config.color} text-xs px-2 py-0.5 rounded-full font-medium`}><config.icon className="w-3 h-3 mr-1" />{campaign.status.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}</Badge>
-                {campaign.owner && (<div className="flex items-center gap-2 text-xs text-gray-600"><div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center"><span className="text-xs font-medium text-gray-700">{campaign.owner.initials}</span></div><span className="font-medium">{campaign.owner.name}</span></div>)}
+                {campaign.owner && (<div className="flex items-center gap-2 text-xs text-[#3A5A5E]"><div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center"><span className="text-xs font-medium text-[#3A5A5E]">{campaign.owner.initials}</span></div><span className="font-medium">{campaign.owner.name}</span></div>)}
               </div>
               <h3 className="font-semibold text-[#3A5A5E] text-sm leading-tight mb-1 tracking-wide">
                 {cardConfig?.title || campaign.name}
@@ -403,15 +403,15 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
       </CardHeader>
       <CardContent className="pt-0 pb-0.5">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-[#3A5A5E]"}`}>{metric.value}</div><div className="text-[11px] text-[#3A5A5E] font-medium uppercase tracking-wider">{metric.label}</div></div>))}
+          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.label === "Interested" ? "text-[#29CC6A]" : "text-[#3A5A5E]"}`}>{metric.value}</div><div className="text-[11px] text-[#3A5A5E] font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
         <div className="flex gap-2">
           {secondaryButton && (
-            <Button variant={secondaryButton.variant} size="sm" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs transition-all duration-300 ease-in-out">
+            <Button variant={secondaryButton.variant} size="sm" className="flex-1 text-[#3A5A5E] hover:text-[#3A5A5E] hover:bg-gray-100 text-xs transition-all duration-300 ease-in-out">
               <secondaryButton.icon className="w-3 h-3 mr-1" />{secondaryButton.label}
             </Button>
           )}
-          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs transition-all duration-300 ease-in-out ${actionButton.variant === "default" ? "bg-[#00807B] hover:bg-[#00807B]/90 text-white" : "border-gray-300 hover:bg-gray-100"}`}>
+          <Button variant={actionButton.variant} size="sm" className={`flex-1 text-xs transition-all duration-300 ease-in-out ${actionButton.variant === "default" ? "bg-[#00807B] hover:bg-[#00807B]/90 text-white" : "border-gray-300 hover:bg-gray-100 text-[#3A5A5E]"}`}>
             <actionButton.icon className="w-3 h-3 mr-1" />{actionButton.label}
           </Button>
         </div>
@@ -427,7 +427,7 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
 }) {
     const typeConfig = {
         Updates: { icon: CheckCircle, color: "text-[#4CAF50]" },
-        Leads: { icon: MessageCircle, color: "text-[#006B67]" },
+        Leads: { icon: MessageCircle, color: "text-[#29CC6A]" },
         Blocker: { icon: AlertTriangle, color: "text-[#8D6E63]" },
         Billing: { icon: CreditCard, color: "text-[#F44336]" },
     };
@@ -451,37 +451,37 @@ function NotificationItem({ notification, onMarkAsRead, onMarkAsUnread }: {
             onClick={handleClick}
         >
             <div className="flex items-start gap-3">
-                <div className={`p-2 rounded-lg ${notification.type === 'Updates' ? 'bg-[#4CAF50]/10' : notification.type === 'Leads' ? 'bg-[#006B67]/10' : notification.type === 'Blocker' ? 'bg-[#8D6E63]/10' : 'bg-[#F44336]/10'}`}>
-                    <Icon className={`w-4 h-4 flex-shrink-0 ${color}`} />
+                <div className={`p-2 rounded-lg ${notification.type === 'Updates' ? 'bg-[#4CAF50]/10' : notification.type === 'Leads' ? 'bg-[#29CC6A]/10' : notification.type === 'Blocker' ? 'bg-[#8D6E63]/10' : 'bg-[#F44336]/10'}`}>
+                    <Icon className={`w-4 h-4 flex-shrink-0 ${notification.type === 'Leads' ? 'text-[#29CC6A]' : color}`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start gap-3 mb-1">
+                    <div className="flex items-start gap-3 mb-1">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                             {!notification.read && (
-                                <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
+                                <span className="w-2 h-2 bg-[#29CC6A] rounded-full flex-shrink-0" />
                             )}
-                            <p className={`font-semibold text-sm text-gray-800 truncate tracking-wide ${!notification.read ? 'font-bold' : ''}`}>
+                            <p className={`font-semibold text-sm text-[#3A5A5E] tracking-wide whitespace-nowrap overflow-hidden text-ellipsis ${!notification.read ? 'font-bold' : ''}`}>
                                 {notification.title}
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                            <span className="text-xs text-gray-500 whitespace-nowrap">{notification.date}</span>
+                        <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
                             {notification.read && (
                                 <Button
                                     variant="ghost"
                                     size="sm"
                                     onClick={handleMarkAsUnread}
-                                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-xs px-2 py-1 h-auto text-gray-500 hover:text-gray-700 rounded-md"
+                                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-xs px-2 py-1 h-auto text-[#3A5A5E] hover:text-[#3A5A5E] rounded-md whitespace-nowrap"
                                 >
                                     Mark unread
                                 </Button>
                             )}
+                            <span className="text-xs text-[#3A5A5E] whitespace-nowrap">{notification.date}</span>
                         </div>
                     </div>
-                    <p className={`text-sm text-gray-600 mt-1 tracking-wide ${!notification.read ? 'font-medium' : ''}`}>
+                    <p className={`text-sm text-[#3A5A5E] mt-1 tracking-wide ${!notification.read ? 'font-medium' : ''}`}>
                         {notification.body}
                     </p>
-                    <Button variant="link" className="p-0 h-auto mt-2 text-[#006B67] text-sm font-medium">{notification.cta}</Button>
+                    <Button variant="link" className="p-0 h-auto mt-2 text-[#29CC6A] text-sm font-medium">{notification.cta}</Button>
                 </div>
             </div>
         </div>
@@ -503,14 +503,14 @@ function NotificationDrawer({ isOpen, onClose, notifications, onMarkAsRead, onMa
             <div className={`fixed inset-0 bg-black/30 z-30 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} onClick={onClose} />
             <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-b from-white to-[#FAFAFA] backdrop-blur-sm shadow-[0_4px_12px_rgba(0,0,0,0.05)] z-40 transform transition-transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}`} style={{ fontFamily: 'Satoshi, sans-serif' }}>
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                    <h2 className="text-xl font-bold text-gray-800 tracking-wide">Notifications</h2>
+                    <h2 className="text-xl font-bold text-[#3A5A5E] tracking-wide">Notifications</h2>
                     <div className="flex items-center gap-2">
                         {unreadCount > 0 && (
-                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-[#006B67] hover:text-[#006B67]/80 transition-all duration-300">
+                            <Button variant="ghost" size="sm" onClick={onMarkAllAsRead} className="text-xs text-[#29CC6A] hover:text-[#29CC6A]/80 transition-all duration-300">
                                 Mark all as read
                             </Button>
                         )}
-                        <Button variant="ghost" size="icon" onClick={onClose}><X className="w-5 h-5" /></Button>
+                        <Button variant="ghost" size="icon" onClick={onClose} className="text-[#3A5A5E]"><X className="w-5 h-5" /></Button>
                     </div>
                 </div>
                 <div className="h-[calc(100%-57px)] overflow-y-auto">
