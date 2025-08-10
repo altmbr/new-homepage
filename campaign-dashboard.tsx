@@ -259,7 +259,7 @@ function Sidebar() {
 
 function Header({ onNotificationClick, unreadCount }: { onNotificationClick: () => void; unreadCount: number }) {
   return (
-    <header className="py-4 px-8 flex items-center justify-between">
+    <header className="py-4 px-8 max-w-6xl mx-auto flex items-center justify-between">
       <h1 className="text-xl font-bold text-gray-800 tracking-wide">Dashboard</h1>
       <div className="flex items-center gap-4">
         <div className="bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-full px-4 py-2 text-sm font-medium text-gray-700">Credits: 980</div>
@@ -278,7 +278,7 @@ function StatCard({ title, value, icon: Icon, pillClass, breakdown, isExpanded, 
 
   return (
     <Card className="bg-white backdrop-blur-sm border border-gray-300 shadow-lg hover:shadow-xl transition-shadow rounded-2xl">
-      <CardContent className="p-4">
+      <CardContent className="px-6 py-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-lg text-white ${pillClass}`}><Icon className="w-4 h-4" /></div>
@@ -308,7 +308,7 @@ function StatsRow() {
   };
   
   return (
-    <section className="px-8 mb-10">
+    <section className="px-8 mb-20 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Live Campaigns" value={formatAbbr(inProgressCount)} icon={TrendingUp} pillClass="bg-blue-500" breakdown={[{ label: "Email", value: formatAbbr(inProgressByChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(inProgressByChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: "N/A", icon: Linkedin }, { label: "Dialer", value: "N/A", icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
         <StatCard title="Outreach" value={formatAbbr(totals.Outreach.total)} icon={Send} pillClass="bg-teal-500" breakdown={[{ label: "Email", value: formatAbbr(totals.Outreach.byChannel.Email), icon: Mail }, { label: "LinkedIn Messages", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Messages"]), icon: Linkedin }, { label: "LinkedIn Posts", value: formatAbbr(totals.Outreach.byChannel["LinkedIn Posts"]), icon: Linkedin }, { label: "Dialer", value: formatAbbr(totals.Outreach.byChannel.Dialer), icon: PhoneCall }]} isExpanded={isExpanded} onToggleExpanded={toggleExpanded} />
@@ -322,13 +322,13 @@ function StatsRow() {
 function ChatBox() {
   const [message, setMessage] = useState("");
   return (
-    <div className="text-center mb-12">
+    <div className="text-center mb-20">
       <h2 className="text-3xl font-bold mb-4 tracking-wide" style={{ fontFamily: 'Satoshi, sans-serif', color: '#006B67' }}>Who do you want to sell to?</h2>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <Card className="bg-white backdrop-blur-sm shadow-lg border border-gray-300 rounded-2xl">
           <CardContent className="p-4">
             <div className="flex items-center">
-              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="You're the boss" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
+              <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Name your audience or strategy" className="flex-1 bg-transparent text-sm text-gray-700 placeholder-gray-500 focus:outline-none px-4" />
               <div className="flex items-center gap-4 pr-2">
                 <Mic className="w-4 h-4 text-gray-500 cursor-pointer" />
                 <Paperclip className="w-4 h-4 text-gray-500 cursor-pointer" />
@@ -357,7 +357,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
 
   return (
     <Card className="bg-white backdrop-blur-sm shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-300 rounded-2xl">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-2">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1 min-w-0">
             <div className={`p-2 rounded-lg ${campaign.type === "email" ? "bg-teal-50" : campaign.type === "phone" ? "bg-blue-50" : "bg-purple-50"}`}>
@@ -380,7 +380,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 pb-2">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
@@ -563,9 +563,9 @@ export default function CampaignDashboard() {
         <Header onNotificationClick={() => setIsNotificationsOpen(true)} unreadCount={unreadCount} />
         <StatsRow />
         <ChatBox />
-        <section className="px-8">
+        <section className="px-8 max-w-6xl mx-auto">
           <Card className="bg-white backdrop-blur-sm shadow-xl border border-gray-300 rounded-2xl">
-          <CardHeader className="px-10 py-6 border-b border-gray-200">
+          <CardHeader className="px-10 py-3 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <Tabs value={selectedStatus} onValueChange={(value) => setSelectedStatus(value)} className="flex-1">
                 <TabsList className="bg-gray-100/80 p-1 rounded-lg">
@@ -594,7 +594,7 @@ export default function CampaignDashboard() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="px-10 py-6">
+          <CardContent className="px-10 py-3">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
               {paginatedCampaigns.map((campaign) => (<CampaignCard key={campaign.id} campaign={campaign} />))}
             </div>
