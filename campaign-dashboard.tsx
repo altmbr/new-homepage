@@ -47,9 +47,9 @@ const cardData: CardConfig[] = [
   { grouping: "Idea", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
   { grouping: "Idea", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
   { grouping: "Idea", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: [], title: "", description: "" },
-  { grouping: "Draft", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Draft", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
-  { grouping: "Draft", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["People", "Companies"], title: "", description: "" },
+  { grouping: "Draft", channel: "Email", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["Contacts", "Companies"], title: "", description: "" },
+  { grouping: "Draft", channel: "LinkedIn", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["Contacts", "Companies"], title: "", description: "" },
+  { grouping: "Draft", channel: "Dialer", primaryAction: "Build/Edit", secondaryAction: "Dismiss", data: ["Contacts", "Companies"], title: "", description: "" },
   { grouping: "Blocked", channel: "Email", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
   { grouping: "Blocked", channel: "LinkedIn", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
   { grouping: "Blocked", channel: "Dialer", primaryAction: "View", secondaryAction: "Dismiss", data: ["Outreached", "Engaged", "Leads"], title: "", description: "" },
@@ -61,11 +61,11 @@ const cardData: CardConfig[] = [
 const campaigns: Campaign[] = [
   { id: "1", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "in-progress", type: "email", metrics: [{ label: "Outreached", value: "156" }, { label: "Engaged", value: "23" }, { label: "Leads", value: "8" }], owner: { name: "Sarah Chen", initials: "SC" } },
   { id: "2", name: "Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "on-hold", type: "email", metrics: [{ label: "Outreached", value: "342" }, { label: "Engaged", value: "48" }, { label: "Leads", value: "14" }], owner: { name: "Mike Johnson", initials: "MJ" } },
-  { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
-  { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [{ label: "People", value: "1,247" }, { label: "Companies", value: "89" }] },
+  { id: "3", name: "Vibe Outbound Campaign", sequence: "SaaS Founders Nurture Sequence", status: "draft", type: "phone", metrics: [{ label: "Contacts", value: "1,247" }, { label: "Companies", value: "89" }], owner: { name: "Alex Rivera", initials: "AR" } },
+  { id: "4", name: "Enterprise Outreach", sequence: "Enterprise Decision Makers", status: "ideas", type: "email", metrics: [] },
   { id: "5", name: "Product Demo Campaign", sequence: "Demo Request Follow-up", status: "in-progress", type: "email", metrics: [{ label: "Outreached", value: "289" }, { label: "Engaged", value: "67" }, { label: "Leads", value: "19" }], owner: { name: "Emma Davis", initials: "ED" } },
   { id: "6", name: "LinkedIn Outreach", sequence: "Executive Connect", status: "on-hold", type: "linkedin-outbound", metrics: [{ label: "Outreached", value: "543" }, { label: "Engaged", value: "67" }, { label: "Leads", value: "12" }], owner: { name: "John Smith", initials: "JS" } },
-  { id: "7", name: "Phone Campaign", sequence: "Discovery Calls", status: "draft", type: "phone", metrics: [{ label: "People", value: "892" }, { label: "Companies", value: "124" }], owner: { name: "Lisa Wang", initials: "LW" } }
+  { id: "7", name: "Phone Campaign", sequence: "Discovery Calls", status: "draft", type: "phone", metrics: [{ label: "Contacts", value: "892" }, { label: "Companies", value: "124" }], owner: { name: "Lisa Wang", initials: "LW" } }
 ];
 
 type NotificationType = "Updates" | "Leads" | "Blocker" | "Billing";
