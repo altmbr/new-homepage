@@ -391,10 +391,10 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
                 <Badge variant="secondary" className={`${config.color} text-xs px-2 py-0.5 rounded-full font-medium`}><config.icon className="w-3 h-3 mr-1" />{campaign.status.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())}</Badge>
                 {campaign.owner && (<div className="flex items-center gap-2 text-xs text-gray-600"><div className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center"><span className="text-xs font-medium text-gray-700">{campaign.owner.initials}</span></div><span className="font-medium">{campaign.owner.name}</span></div>)}
               </div>
-              <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1 tracking-wide">
+              <h3 className="font-semibold text-[#3A5A5E] text-sm leading-tight mb-1 tracking-wide">
                 {cardConfig?.title || campaign.name}
               </h3>
-              <p className="text-xs text-gray-500 truncate tracking-wide">
+              <p className="text-xs text-[#3A5A5E] truncate tracking-wide">
                 {cardConfig?.description || campaign.sequence}
               </p>
             </div>
@@ -403,7 +403,7 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
       </CardHeader>
       <CardContent className="pt-0 pb-0.5">
         <div className={`grid gap-4 mb-4 ${displayMetrics.length === 3 ? 'grid-cols-3' : displayMetrics.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-gray-800"}`}>{metric.value}</div><div className="text-[11px] text-gray-500 font-medium uppercase tracking-wider">{metric.label}</div></div>))}
+          {displayMetrics.map((metric, index) => (<div key={index} className="text-center"><div className={`text-lg font-bold mb-0.5 ${metric.color || "text-[#3A5A5E]"}`}>{metric.value}</div><div className="text-[11px] text-[#3A5A5E] font-medium uppercase tracking-wider">{metric.label}</div></div>))}
         </div>
         <div className="flex gap-2">
           {secondaryButton && (
